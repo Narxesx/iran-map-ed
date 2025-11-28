@@ -278,7 +278,7 @@ function createIranMap() {
     
     // ایجاد تصویر نقشه ایران
     const img = document.createElement("img");
-    img.src = "pictures/iranmap.png";
+    img.src = "iranmap.png";
     img.className = "iran-map-img";
     img.alt = "نقشه ایران";
     iranMap.appendChild(img);
@@ -698,4 +698,5 @@ resetBtn.addEventListener('click', resetGame);
 createIranMap();
 updateScore();
 updateHearts();
+
 updateHearts(); // برای نمایش قلب‌های اولیه
