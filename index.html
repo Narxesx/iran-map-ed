@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آموزش نقشه ایران - دانش آموزان</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        
+        <!-- بخش اطلاعات بازی -->
+        <div class="game-info">
+            <div class="hearts">
+                <div class="heart">❤️</div>
+                <div class="heart">❤️</div>
+                <div class="heart">❤️</div>
+            </div>
+            <div class="score">
+                امتیاز: <span class="score-value">0</span>
+            </div>
+            <div class="stars">
+                <!-- ستاره‌ها با JavaScript اضافه خواهند شد -->
+            </div>
+        </div>
+        
+        <!-- پیام بازی -->
+        <div id="message" class="message">برای شروع بازی روی دکمه "شروع بازی" کلیک کنید</div>
+        
+        <!-- بخش کنترل‌ها -->
+        <div class="controls">
+            <button id="start-btn">شروع بازی</button>
+            <button id="reset-btn">بازی مجدد</button>
+            <button id="guide-btn">راهنمای بازی</button>
+
+            <!-- پنجره پاپ‌آپ راهنما -->
+            <div id="guide-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>راهنمای بازی</h2>
+                    <p>1. روی دکمه "شروع بازی" کلیک کنید.</p>
+                    <p>2. در سمت راست به ترتیب مراحل : تصور استان‌ها، نام استان، شهر های مهم هر استان، سوغات و مشاهیر هر استان را مشاهده می‌کنید.</p>
+                    <p>3. سعی کنید استان موردنظر را در نقشه ایران پیدا کرده و روی نقطه آن کلیک کنید.</p>
+                    <p>4. اگر درست حدس بزنید، امتیاز می‌گیرید و ستاره دریافت می‌کنید.</p>
+                    <p>5. اگر اشتباه کنید، یکی از قلب‌های خود را از دست می‌دهید.</p>
+                    <p>6. اگر همه قلب‌ها را از دست بدهید، بازی تمام می‌شود.</p>
+                </div>
+            </div>
+        </div>
+        
+        <br>
+        
+        <!-- بخش اصلی بازی -->
+        <div class="game-area">
+            <!-- نقشه ایران -->
+            <div class="map-container">
+                <h2 class="map-title">نقشه ایران</h2>
+                <div class="iran-map" id="iran-map">
+                    <!-- نقشه و نقاط با JavaScript ایجاد خواهند شد -->
+                </div>
+            </div>
+            
+            <!-- استان مورد نظر -->
+            <div class="map-container">
+                <h2 class="map-title">استان مورد نظر</h2>
+                <div class="province-map" id="province-map">
+                    <p>استان تصادفی اینجا نمایش داده می‌شود</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- دکمه اطلاعات سازنده -->
+    <div class="info-container">
+        <div class="info-circle" id="info-btn">
+            <span>Ⓒ</span>
+        </div>
+        <div class="info-slide">
+            <div class="info-content">
+                <h3>سازنده بازی</h3>
+                <p>🎮 آموزش نقشه ایران</p>
+                <p>👨‍💻 توسعه دهنده: نرجس نجاتی جزه</p>
+                <p>📧 ایمیل: narjes.nejati@outlook.com</p>
+                <p>🎯 هدف: آموزش جغرافیای ایران به دانش‌آموزان</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
