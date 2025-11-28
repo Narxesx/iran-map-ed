@@ -7,7 +7,7 @@
 
 /* رفع باگ اول: نمایش صحیح تصویر پس‌زمینه */
 body {
-    background-image: url("pictures/background.jpg");
+    background-image: url("background.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -795,4 +795,5 @@ button:disabled {
     .container {
         margin-top: 180px;
     }
+
 }
