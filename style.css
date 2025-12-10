@@ -1,0 +1,923 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+body {
+    background-image: url("pictures/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 120px; 
+}
+
+/* بخش اطلاعات بازی */
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 15px 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    z-index: 1000;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.hearts {
+    display: flex;
+    gap: 10px;
+}
+
+.heart {
+    font-size: 2rem;
+    color: #ff4d4d;
+    transition: all 0.3s ease;
+}
+
+.heart.lost {
+    color: #666;
+    transform: scale(0.8);
+}
+
+.score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.stars {
+    display: flex;
+    gap: 5px;
+}
+
+.star {
+    font-size: 1.8rem;
+    color: gold;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+/* بخش اصلی بازی */
+.game-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.map-container {
+    flex: 1;
+    min-width: 300px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.map-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+/* نقشه ایران */
+.iran-map {
+    width: 100%;
+    height: 400px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e9ecef;
+}
+
+.province-map {
+    width: 100%;
+    height: 400px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e9ecef;
+}
+
+/* استان انتخاب شده */
+.selected-province {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    padding: 20px;
+}
+
+.selected-province h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.selected-province p {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* تصویر نقشه */
+.iran-map-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+}
+
+/* نقاط قابل کلیک استان‌ها */
+.province-point {
+    position: absolute;
+    width: 16px; 
+    height: 16px; 
+    background: rgba(128, 128, 128, 0.6); 
+    border: 2px solid rgba(211, 209, 209, 0.8);
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.425);
+    z-index: 10;
+    backdrop-filter: blur(5px); 
+}
+
+.province-point.active {
+    background: rgba(128, 128, 128, 0.7); 
+    cursor: pointer;
+}
+
+.province-point:not(.active) {
+    background: rgba(128, 128, 128, 0.4); 
+    cursor: not-allowed;
+}
+
+.province-point:hover {
+    transform: translate(-50%, -50%) scale(1.2); 
+    box-shadow: 0 4px 12px rgba(128, 128, 128, 0.5);
+    z-index: 20;
+}
+
+/* شماره داخل نقاط */
+.point-number {
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* حالت‌های مختلف نقاط */
+.province-point.correct {
+    background: rgba(76, 175, 80, 0.9); /* سبز برای پاسخ صحیح */
+    border-color: #4CAF50;
+    z-index: 100;
+}
+
+.province-point.wrong {
+    background: rgba(244, 67, 54, 0.9); /* قرمز برای پاسخ غلط */
+    border-color: #f44336;
+    z-index: 100;
+}
+
+.province-point.selected {
+    background: rgba(255, 193, 7, 0.9); /* زرد برای استان انتخاب شده */
+    border-color: #FFC107;
+    z-index: 100;
+}
+
+/* انیمیشن پالس سبز برای نقطه صحیح */
+@keyframes pulse-green {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+        transform: translate(-50%, -50%) scale(1.3);
+    }
+    50% { 
+        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}
+
+/* انیمیشن پالس طلایی برای پاسخ صحیح */
+@keyframes pulse-gold {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+        transform: translate(-50%, -50%) scale(1.3);
+    }
+    50% { 
+        box-shadow: 0 0 0 10px rgb(211, 182, 18);
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}
+
+/* انیمیشن تکان خوردن برای پاسخ غلط */
+@keyframes shake {
+    0%, 100% { 
+        transform: translate(-50%, -50%) rotate(0deg); 
+    }
+    25% { 
+        transform: translate(-50%, -50%) rotate(-5deg); 
+    }
+    75% { 
+        transform: translate(-50%, -50%) rotate(5deg); 
+    }
+}
+
+.province-point.correct.answered {
+    background: rgba(255, 215, 0, 0.9); /* زرد درخشان برای پاسخ صحیح */
+    border-color: #ffd700;
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+    animation: pulse-gold 1s infinite;
+}
+
+.province-point.wrong.answered {
+    background: rgba(244, 67, 54, 0.9); /* قرمز برای پاسخ غلط */
+    border-color: #f44336;
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.8);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes pulse-gold {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+    }
+    50% { 
+        box-shadow: 0 0 0 10px rgba(255, 217, 0, 0.854);
+    }
+}
+
+/* مرحله دوم- شکل استان ها */
+.province-map {
+    width: 100%;
+    height: 400px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e9ecef;
+}
+
+.province-shape-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.province-shape {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    padding: 20px; 
+}
+
+.selected-province {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.province-image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* برای حالت‌های مختلف بازی */
+.game-phase-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+/* استایل‌های برای قلب‌های شکسته */
+.heart.lost {
+    opacity: 0.3;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+/* استایل برای تایمر */
+.timer-display {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.timer-display.warning {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.15);
+    animation: pulse 1s infinite;
+    border-color: rgba(255, 68, 68, 0.3);
+}
+
+/* بخش کنترل‌ها */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-width: 150px;
+}
+
+#start-btn {
+    background: linear-gradient(to right, #4CAF50, #45a049);
+    color: white;
+}
+
+#start-btn.playing {
+    background: linear-gradient(to right, #ff9800, #f57c00);
+}
+
+#start-btn.game-over {
+    background: linear-gradient(to right, #FF6B6B, #C62828);
+    animation: pulse-red 1s infinite;
+}
+
+@keyframes pulse-red {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#guide-btn {
+    background: linear-gradient(to right, #2196F3, #1976D2);
+    color: white;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* پیام‌های بازی - حالت تمام صفحه */
+.message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    flex-direction: column;
+}
+
+.message.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.message.success {
+    background: rgba(76, 175, 80, 0.95);
+}
+
+.message.error {
+    background: rgba(244, 67, 54, 0.95);
+}
+
+.message.game-over {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.message.level-up {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.message.game-finished {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.message-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    max-width: 80%;
+    animation: messageAppear 0.3s ease-out;
+}
+
+@keyframes messageAppear {
+    0% {
+        transform: scale(0.2) translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(0.5) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* پنجره پاپ‌آپ راهنما */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 500px;
+    margin: 50px auto;
+    border-radius: 15px;
+    text-align: right;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+.close {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* افکت‌های بصری */
+.effect {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+    animation: floatUp 1.5s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.star-effect {
+    color: gold;
+    font-size: 3rem;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+.heart-effect {
+    font-size: 3rem;
+    color: #ff4d4d;
+}
+
+.broken-heart-effect {
+    font-size: 3rem;
+    color: #666;
+    animation: breakHeart 1s ease-out forwards;
+}
+
+@keyframes breakHeart {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5) rotate(180deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(0.5) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.pulse {
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* نمایشگر تایمر */
+.timer-display {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.timer-display.warning {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.15);
+    animation: pulse 1s infinite;
+    border-color: rgba(255, 68, 68, 0.3);
+}
+
+/* انیمیشن جام */
+@keyframes trophyBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    40% {
+        transform: translate(-50%, -50%) scale(1.3);
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* انیمیشن برای ستاره‌های رنگی */
+.star-effect {
+    font-size: 3rem;
+    text-shadow: 0 0 10px currentColor;
+}
+
+/* استایل‌های واکنش‌گرا برای تایمر */
+@media (max-width: 768px) {
+    .timer-display {
+        font-size: 1.1rem;
+        padding: 6px 12px;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px 15px;
+    }
+    
+    .message {
+        font-size: 2rem;
+    }
+    
+    .message-content {
+        padding: 20px;
+    }
+    
+    button {
+        min-width: 120px;
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+/* استایل برای نمایش تعداد ستاره‌های بیشتر از ۵ */
+.star-count {
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+/* افکت درخشش برای ستاره‌ها وقتی کاربر امتیاز می‌گیرد */
+.star.pulse-effect {
+    animation: starGlow 0.5s ease-in-out;
+}
+
+@keyframes starGlow {
+    0%, 100% { 
+        transform: scale(1);
+        color: gold;
+    }
+    50% { 
+        transform: scale(1.3);
+        color: #FFEB3B;
+        text-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
+    }
+}
+
+/* استایل‌های دکمه اطلاعات سازنده */
+.info-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    color: #e9ecef;
+}
+
+.info-circle {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.info-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.info-circle span {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.info-slide {
+    position: absolute;
+    bottom: 0;
+    left: 70px;
+    width: 0;
+    height: auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.info-container:hover .info-slide {
+    width: 300px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.info-content {
+    padding: 20px;
+    color: #333;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.info-content h3 {
+    margin-bottom: 15px;
+    color: #667eea;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 8px;
+}
+
+.info-content p {
+    margin: 8px -8px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #555;
+}
+
+.info-content p:first-of-type {
+    color: #764ba2;
+    font-weight: bold;
+}
+
+/* استایل‌های واکنش‌گرا برای دکمه اطلاعات */
+@media (max-width: 768px) {
+    .info-container {
+        bottom: 15px;
+        left: 15px;
+    }
+    
+    .info-circle {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .info-circle span {
+        font-size: 1.3rem;
+    }
+    
+    .info-container:hover .info-slide {
+        width: 250px;
+    }
+    
+    .info-content {
+        padding: 15px;
+    }
+    
+    .info-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .info-content p {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-container {
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .info-circle {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .info-container:hover .info-slide {
+        width: 200px;
+    }
+    
+    .info-content h3 {
+        font-size: 1rem;
+    }
+    
+    .info-content p {
+        font-size: 0.75rem;
+    }
+}
+
+/* انیمیشن برای ظاهر شدن محتوا */
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.info-container:hover .info-content {
+    animation: slideInFromLeft 0.3s ease-out;
+}
+
+
+/* استایل برای اطلاعات زمان */
+.time-info {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* استایل‌های مرحله شکل استان */
+.province-shape-container {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 15px 0;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.province-shape {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.shape-hint {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* برای حالت‌های مختلف بازی */
+.game-phase-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
