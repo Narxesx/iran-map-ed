@@ -70,37 +70,37 @@ const starsEl = document.querySelector('.stars');
 
 // داده‌های استان‌های ایران با مختصات نقاط مرکزی و مسیر تصاویر
 const provinces = [
-    { id: 1, name: "آذربایجان شرقی", color: "#FF6B6B", x: 95, y: 50, shape: "pictures/provinces/East-Azerbaijan.png" },
-    { id: 2, name: "آذربایجان غربی", color: "#4ECDC4", x: 55, y: 55, shape: "pictures/provinces/West-Azerbaijan.png" },
-    { id: 3, name: "اردبیل", color: "#45B7D1", x: 130, y: 40, shape: "pictures/provinces/Ardabil.png" },
-    { id: 4, name: "اصفهان", color: "#96CEB4", x: 230, y: 180, shape: "pictures/provinces/Isfahan.png" },
-    { id: 5, name: "البرز", color: "#FFEAA7", x: 200, y: 106, shape: "pictures/provinces/Alborz.png" },
-    { id: 6, name: "ایلام", color: "#DDA0DD", x: 100, y: 180, shape: "pictures/provinces/Ilam.png" },
-    { id: 7, name: "بوشهر", color: "#98D8C8", x: 212, y: 295, shape: "pictures/provinces/Booshehr.png" },
-    { id: 8, name: "تهران", color: "#F7DC6F", x: 217, y: 117, shape: "pictures/provinces/Tehran.png" },
-    { id: 9, name: "چهارمحال و بختیاری", color: "#BB8FCE", x: 193, y: 210, shape: "pictures/provinces/Chaharmahal-and-Bakhtiari.png" },
-    { id: 10, name: "خراسان جنوبی", color: "#85C1E9", x: 400, y: 195, shape: "pictures/provinces/South-Khorasan.png" },
-    { id: 11, name: "خراسان رضوی", color: "#F8C471", x: 400, y: 116, shape: "pictures/provinces/Razavi-Khorasan.png" },
-    { id: 12, name: "خراسان شمالی", color: "#82E0AA", x: 344, y: 64, shape: "pictures/provinces/North-Khorasan.png" },
-    { id: 13, name: "خوزستان", color: "#F1948A", x: 156, y: 218, shape: "pictures/provinces/Khuzestan.png" },
-    { id: 14, name: "زنجان", color: "#C39BD3", x: 140, y: 90, shape: "pictures/provinces/Zanjan.png" },
-    { id: 15, name: "سمنان", color: "#7FB3D5", x: 280, y: 125, shape: "pictures/provinces/Semnan.png" },
-    { id: 16, name: "سیستان و بلوچستان", color: "#76D7C4", x: 440, y: 320, shape: "pictures/provinces/Sistan-and-Baluchestan.png" },
-    { id: 17, name: "فارس", color: "#F7DC6F", x: 255, y: 285, shape: "pictures/provinces/Fars.png" },
-    { id: 18, name: "قزوین", color: "#BB8FCE", x: 172, y: 105, shape: "pictures/provinces/Qazvin.png" },
-    { id: 19, name: "قم", color: "#85C1E9", x: 203, y: 138, shape: "pictures/provinces/Qom.png" },
-    { id: 20, name: "کردستان", color: "#F8C471", x: 108, y: 115, shape: "pictures/provinces/Kurdistan.png" },
-    { id: 21, name: "کرمان", color: "#82E0AA", x: 350, y: 275, shape: "pictures/provinces/Kerman.png" },
-    { id: 22, name: "کرمانشاه", color: "#F1948A", x: 100, y: 148, shape: "pictures/provinces/Kermanshah.png" },
-    { id: 23, name: "کهگیلویه و بویراحمد", color: "#C39BD3", x: 200, y: 245, shape: "pictures/provinces/Kohgiluyeh-and-Boyer-Ahmad.png" },
-    { id: 24, name: "گلستان", color: "#7FB3D5", x: 293, y: 74, shape: "pictures/provinces/Golestan.png" },
-    { id: 25, name: "گیلان", color: "#76D7C4", x: 170, y: 74, shape: "pictures/provinces/Gilan.png" },
-    { id: 26, name: "لرستان", color: "#F7DC6F", x: 138, y: 170, shape: "pictures/provinces/Lorestan.png" },
-    { id: 27, name: "مازندران", color: "#BB8FCE", x: 235, y: 97, shape: "pictures/provinces/Mazandaran.png" },
-    { id: 28, name: "مرکزی", color: "#85C1E9", x: 168, y: 140, shape: "pictures/provinces/Markazi.png" },
-    { id: 29, name: "هرمزگان", color: "#F8C471", x: 328, y: 325, shape: "pictures/provinces/Hormozgan.png" },
-    { id: 30, name: "همدان", color: "#82E0AA", x: 140, y: 135, shape: "pictures/provinces/Hamadan.png" },
-    { id: 31, name: "یزد", color: "#F1948A", x: 300, y: 205, shape: "pictures/provinces/Yazd.png" }
+    { id: 1, name: "آذربایجان شرقی", color: "#FF6B6B", x: 95, y: 50, shape: "/pictures/provinces/East-Azerbaijan.png" },
+    { id: 2, name: "آذربایجان غربی", color: "#4ECDC4", x: 55, y: 55, shape: "/pictures/provinces/West-Azerbaijan.png" },
+    { id: 3, name: "اردبیل", color: "#45B7D1", x: 130, y: 40, shape: "/pictures/provinces/Ardabil.png" },
+    { id: 4, name: "اصفهان", color: "#96CEB4", x: 230, y: 180, shape: "/pictures/provinces/Isfahan.png" },
+    { id: 5, name: "البرز", color: "#FFEAA7", x: 200, y: 106, shape: "/pictures/provinces/Alborz.png" },
+    { id: 6, name: "ایلام", color: "#DDA0DD", x: 100, y: 180, shape: "/pictures/provinces/Ilam.png" },
+    { id: 7, name: "بوشهر", color: "#98D8C8", x: 212, y: 295, shape: "/pictures/provinces/Booshehr.png" },
+    { id: 8, name: "تهران", color: "#F7DC6F", x: 217, y: 117, shape: "/pictures/provinces/Tehran.png" },
+    { id: 9, name: "چهارمحال و بختیاری", color: "#BB8FCE", x: 193, y: 210, shape: "/pictures/provinces/Chaharmahal-and-Bakhtiari.png" },
+    { id: 10, name: "خراسان جنوبی", color: "#85C1E9", x: 400, y: 195, shape: "/pictures/provinces/South-Khorasan.png" },
+    { id: 11, name: "خراسان رضوی", color: "#F8C471", x: 400, y: 116, shape: "/pictures/provinces/Razavi-Khorasan.png" },
+    { id: 12, name: "خراسان شمالی", color: "#82E0AA", x: 344, y: 64, shape: "/pictures/provinces/North-Khorasan.png" },
+    { id: 13, name: "خوزستان", color: "#F1948A", x: 156, y: 218, shape: "/pictures/provinces/Khuzestan.png" },
+    { id: 14, name: "زنجان", color: "#C39BD3", x: 140, y: 90, shape: "/pictures/provinces/Zanjan.png" },
+    { id: 15, name: "سمنان", color: "#7FB3D5", x: 280, y: 125, shape: "/pictures/provinces/Semnan.png" },
+    { id: 16, name: "سیستان و بلوچستان", color: "#76D7C4", x: 440, y: 320, shape: "/pictures/provinces/Sistan-and-Baluchestan.png" },
+    { id: 17, name: "فارس", color: "#F7DC6F", x: 255, y: 285, shape: "/pictures/provinces/Fars.png" },
+    { id: 18, name: "قزوین", color: "#BB8FCE", x: 172, y: 105, shape: "/pictures/provinces/Qazvin.png" },
+    { id: 19, name: "قم", color: "#85C1E9", x: 203, y: 138, shape: "/pictures/provinces/Qom.png" },
+    { id: 20, name: "کردستان", color: "#F8C471", x: 108, y: 115, shape: "/pictures/provinces/Kurdistan.png" },
+    { id: 21, name: "کرمان", color: "#82E0AA", x: 350, y: 275, shape: "/pictures/provinces/Kerman.png" },
+    { id: 22, name: "کرمانشاه", color: "#F1948A", x: 100, y: 148, shape: "/pictures/provinces/Kermanshah.png" },
+    { id: 23, name: "کهگیلویه و بویراحمد", color: "#C39BD3", x: 200, y: 245, shape: "/pictures/provinces/Kohgiluyeh-and-Boyer-Ahmad.png" },
+    { id: 24, name: "گلستان", color: "#7FB3D5", x: 293, y: 74, shape: "/pictures/provinces/Golestan.png" },
+    { id: 25, name: "گیلان", color: "#76D7C4", x: 170, y: 74, shape: "/pictures/provinces/Gilan.png" },
+    { id: 26, name: "لرستان", color: "#F7DC6F", x: 138, y: 170, shape: "/pictures/provinces/Lorestan.png" },
+    { id: 27, name: "مازندران", color: "#BB8FCE", x: 235, y: 97, shape: "/pictures/provinces/Mazandaran.png" },
+    { id: 28, name: "مرکزی", color: "#85C1E9", x: 168, y: 140, shape: "/pictures/provinces/Markazi.png" },
+    { id: 29, name: "هرمزگان", color: "#F8C471", x: 328, y: 325, shape: "/pictures/provinces/Hormozgan.png" },
+    { id: 30, name: "همدان", color: "#82E0AA", x: 140, y: 135, shape: "/pictures/provinces/Hamadan.png" },
+    { id: 31, name: "یزد", color: "#F1948A", x: 300, y: 205, shape: "/pictures/provinces/Yazd.png" }
 ];
 
 // ==================== مدیریت دکمه شروع/شروع مجدد ====================
@@ -954,3 +954,4 @@ updateHearts();
 // تنظیم متن اولیه دکمه
 
 startBtn.textContent = 'شروع بازی';
+
